@@ -10,3 +10,9 @@ body > header h1 { font-size: 1.5rem; margin: 0; }
 body > header nav { padding: 0; }
 ul.tags { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; list-style: none; }
 ul.tags li { background: var(--accent-bg); border: 1px solid var(--border); border-radius: 5px; padding: .1rem .6rem; font-size: .85rem; }
+summary time,
+summary .tags {
+  font-weight: normal;
+  color: var(--text-light);
+  font-size: 0.85rem;
+}

@@ -1,10 +1,11 @@
-import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 import { db } from "./firebase.js";
 
-export function subscribe(uid, email) {
-  return setDoc(doc(db, "subscribers", uid), {
-    email,
-    notify: true,
-    createdAt: serverTimestamp(),
-  });
+export async function getSubscription(uid) {
+  const snap = await getDoc(doc(db, "subscribers", uid));
+  return snap.exists() ? snap.data() : null;
+}
+
+export function setNotify(uid, email, notify) {
+  return setDoc(doc(db, "subscribers", uid), { email, notify }, { merge: true });
 }

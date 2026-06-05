@@ -3,12 +3,10 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
-  signOut,
-  onAuthStateChanged,
   createUserWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { auth } from "./firebase.js";
-import { subscribe } from "./subscribers.js";
+import { setNotify } from "./subscribers.js";
 
 const AUTHOR_UIDS = ["tCKw1JaR0pdiiLlcrujL6f1yNxg2", "CLIENT_UID"];
 
@@ -21,7 +19,6 @@ const form        = document.getElementById("email-form");
 const emailInput  = document.getElementById("auth-email");
 const passInput   = document.getElementById("auth-password");
 const message     = document.getElementById("auth-error");
-const loginBtn    = document.getElementById("login");
 const notifyInput = document.getElementById("auth-notify");
 const notifyRow   = document.getElementById("notify-row");
 const submitBtn   = document.getElementById("btn-submit");
@@ -30,7 +27,7 @@ const forgotLink  = document.getElementById("btn-forgot");
 const showPwBtn   = document.getElementById("btn-show-pw");
 
 // Modal and feedback
-function openModal() {
+export function openAuthModal() {
   setMode(false);
   passInput.type = "password";
   showPwBtn.textContent = "Show";
@@ -125,7 +122,7 @@ async function signUp(event) {
       passInput.value
     );
     if (notifyInput.checked) {
-      await subscribe(user.uid, user.email);
+      await setNotify(user.uid, user.email, true);
     }
     closeModal();
   } catch (error) {
@@ -135,11 +132,6 @@ async function signUp(event) {
 }
 
 // Wiring
-onAuthStateChanged(auth, (user) => {
-  loginBtn.textContent = user ? "Sign out" : "Log in";
-  loginBtn.onclick = user ? () => signOut(auth) : openModal;
-});
-
 modal.addEventListener("click", (event) => {
   if (event.target === modal) closeModal();
 });

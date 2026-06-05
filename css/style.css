@@ -103,3 +103,7 @@ dialog#auth-modal { max-width: 24rem; padding: 1.5rem; }
 #account-dropdown button:hover { background: var(--accent-bg); }
 #settings-message { color: #c0392b; }
 #settings-message.auth-success { color: green; }
+#account-dropdown[hidden],
+#login[hidden] {
+  display: none;
+}

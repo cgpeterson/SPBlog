@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,22 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
+  
   <body>
     <header>
       <div class="masthead">
         <h1>Mike Drop</h1>
         <button id="login">Log in</button>
+        <div id="account-menu" hidden>
+          <button id="avatar-btn" class="avatar" aria-haspopup="true" aria-expanded="false">
+            <img id="avatar-img" alt="" hidden>
+            <span id="avatar-initial"></span>
+          </button>
+          <div id="account-dropdown" hidden>
+            <button type="button" id="menu-settings">Account settings</button>
+            <button type="button" id="menu-signout">Sign out</button>
+          </div>
+        </div>
       </div>
       <nav class="tabs">
         <a href="#coding" class="active">Coding</a>
@@ -59,7 +71,22 @@ Now we're ready to start working it. Make all kinds of little tree things happen
         <button type="button" id="btn-toggle-mode">Need an account? Sign up</button>
       </form>
     </dialog>
-
+    
+    <dialog id="settings-modal">
+      <button class="modal-close" type="button" id="btn-settings-close">✕</button>
+      <h2>Account settings</h2>
+      <form id="settings-form">
+        <label for="settings-name">Display name</label>
+        <input type="text" id="settings-name" autocomplete="name">
+        <label class="notify">
+          <input type="checkbox" id="settings-notify">
+          Email me when there's a new post
+        </label>
+        <p id="settings-message" hidden></p>
+        <button type="submit">Save</button>
+      </form>
+    </dialog>
+    
     <script type="module" src="js/auth.js"></script>
   </body>
 </html>

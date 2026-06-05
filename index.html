@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mike Drop</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
@@ -35,30 +35,8 @@ We push quite hard! Now, very gently, we'll hypnotize it. Be careful with this b
 Now we're ready to start working it. Make all kinds of little tree things happen. Just make little criss-cross strokes. It helps, when you're doing these kinds of things, make up little stories in your mind. Super light touch here. Do whatever feels right. It's always trying to go somewhere that it can be level.</p>
         </details>  
     </main>
-    <script src="auth.js"></script>
-    <script type="module">
-      // Import SDKs
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
-      import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-      import { getFirestore, collection, addDoc, getDoc, getDocs, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+    <script type="module" src="js/auth.js"></script>
     
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyCXO7ujz0URmunJPEYu53nyBz_eX1-8smo",
-        authDomain: "spblog-57fd2.firebaseapp.com",
-        projectId: "spblog-57fd2",
-        storageBucket: "spblog-57fd2.firebasestorage.app",
-        messagingSenderId: "956579274006",
-        appId: "1:956579274006:web:e8ae822f50a63089198437",
-        measurementId: "G-R83T6MW9CE"
-      };
-    
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
-      const auth = getAuth(app);
-      const db = getFirestore(app);
-    </script>
     <dialog id="auth-modal">
       <button class="modal-close" type="button" id="btn-modal-close">✕</button>
       <button class="btn-google" type="button" id="btn-google">Continue with Google</button>

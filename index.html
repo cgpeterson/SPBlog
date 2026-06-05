@@ -37,13 +37,12 @@ Now we're ready to start working it. Make all kinds of little tree things happen
     </main>
     <script src="index.js"></script>
     <script type="module">
-      // Import the functions you need from the SDKs you need
+      // Import SDKs
       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
-      import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+      import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
       import { getFirestore, collection, addDoc, getDoc, getDocs, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
     
-      // Your web app's Firebase configuration
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
       const firebaseConfig = {
         apiKey: "AIzaSyCXO7ujz0URmunJPEYu53nyBz_eX1-8smo",
@@ -55,11 +54,27 @@ Now we're ready to start working it. Make all kinds of little tree things happen
         measurementId: "G-R83T6MW9CE"
       };
     
-      // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
       const auth = getAuth(app);
       const db = getFirestore(app);
     </script>
+    <dialog id="auth-modal">
+      <button class="modal-close" type="button" id="btn-modal-close">✕</button>
+      <button class="btn-google" type="button" id="btn-google">Continue with Google</button>
+      <div class="divider">or continue with email</div>
+      <form id="email-form">
+        <label for="auth-email">Email</label>
+        <input type="email" id="auth-email" placeholder="you@example.com" autocomplete="email">
+        <label for="auth-password">Password</label>
+        <div class="pw-row">
+          <input type="password" id="auth-password" autocomplete="current-password">
+          <button type="button" id="btn-show-pw">Show</button>
+        </div>
+        <p id="auth-error" hidden></p>
+        <button type="submit">Sign in</button>
+        <button type="button" id="btn-forgot">Forgot your password?</button>
+      </form>
+    </dialog>
   </body>
 </html>

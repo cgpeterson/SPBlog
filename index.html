@@ -21,22 +21,22 @@
         <a href="#fitness">Fitness</a>
       </nav>
     </header>
+
     <main>
-        <details>
-          <summary>
-            First post title
-            <time>June 5, 2026</time>
-            <ul class="tags"><li>css</li><li>firebase</li></ul>
-          </summary>
-          <p>The full post body, revealed when expanded. Leave a little area open here. Now we'll fluff it. Just sorta let this brush dance and play and have fun. Always have that little roll of paint. Just let it sort of flow. Be... so... careful! It doesn't matter in our world where it goes.
+      <details>
+        <summary>
+          First post title
+          <time>June 5, 2026</time>
+          <ul class="tags"><li>css</li><li>firebase</li></ul>
+        </summary>
+        <p>The full post body, revealed when expanded. Leave a little area open here. Now we'll fluff it. Just sorta let this brush dance and play and have fun. Always have that little roll of paint. Just let it sort of flow. Be... so... careful! It doesn't matter in our world where it goes.
 
 We push quite hard! Now, very gently, we'll hypnotize it. Be careful with this bright red -- it'll eat up your whole world in a heartbeat. Just a nice little mountain, a little friendly guy. Just let them fall right out of your brush. Just any old thing that'll stick to the canvas. We'll put a little mountain here.
 
 Now we're ready to start working it. Make all kinds of little tree things happen. Just make little criss-cross strokes. It helps, when you're doing these kinds of things, make up little stories in your mind. Super light touch here. Do whatever feels right. It's always trying to go somewhere that it can be level.</p>
-        </details>  
+      </details>
     </main>
-    <script type="module" src="js/auth.js"></script>
-    
+
     <dialog id="auth-modal">
       <button class="modal-close" type="button" id="btn-modal-close">✕</button>
       <button class="btn-google" type="button" id="btn-google">Continue with Google</button>
@@ -49,10 +49,17 @@ Now we're ready to start working it. Make all kinds of little tree things happen
           <input type="password" id="auth-password" autocomplete="current-password">
           <button type="button" id="btn-show-pw">Show</button>
         </div>
+        <label class="notify" id="notify-row" hidden>
+          <input type="checkbox" id="auth-notify">
+          Email me when there's a new post
+        </label>
         <p id="auth-error" hidden></p>
-        <button type="submit">Sign in</button>
+        <button type="submit" id="btn-submit">Sign in</button>
         <button type="button" id="btn-forgot">Forgot your password?</button>
+        <button type="button" id="btn-toggle-mode">Need an account? Sign up</button>
       </form>
     </dialog>
+
+    <script type="module" src="js/auth.js"></script>
   </body>
 </html>

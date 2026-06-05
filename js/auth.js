@@ -10,7 +10,7 @@ import {
 import { auth } from "./firebase.js";
 import { subscribe } from "./subscribers.js";
 
-const AUTHOR_UIDS = ["YOUR_UID", "CLIENT_UID"];
+const AUTHOR_UIDS = ["tCKw1JaR0pdiiLlcrujL6f1yNxg2", "CLIENT_UID"];
 
 export const isAuthor = () =>
   auth.currentUser && AUTHOR_UIDS.includes(auth.currentUser.uid);

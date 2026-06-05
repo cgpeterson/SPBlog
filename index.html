@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mike Drop</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
+  
   <body>
     <header>
       <div class="masthead">
         <h1>Mike Drop</h1>
         <button id="login">Log in</button>
+        <div id="account-menu" hidden>
+          <button id="avatar-btn" class="avatar" aria-haspopup="true" aria-expanded="false">
+            <img id="avatar-img" alt="" hidden>
+            <span id="avatar-initial"></span>
+          </button>
+          <div id="account-dropdown" hidden>
+            <button type="button" id="menu-settings">Account settings</button>
+            <button type="button" id="menu-signout">Sign out</button>
+          </div>
+        </div>
       </div>
       <nav class="tabs">
         <a href="#coding" class="active">Coding</a>
@@ -21,45 +33,60 @@
         <a href="#fitness">Fitness</a>
       </nav>
     </header>
+
     <main>
-        <details>
-          <summary>
-            First post title
-            <time>June 5, 2026</time>
-            <ul class="tags"><li>css</li><li>firebase</li></ul>
-          </summary>
-          <p>The full post body, revealed when expanded. Leave a little area open here. Now we'll fluff it. Just sorta let this brush dance and play and have fun. Always have that little roll of paint. Just let it sort of flow. Be... so... careful! It doesn't matter in our world where it goes.
+      <details>
+        <summary>
+          First post title
+          <time>June 5, 2026</time>
+          <ul class="tags"><li>css</li><li>firebase</li></ul>
+        </summary>
+        <p>The full post body, revealed when expanded. Leave a little area open here. Now we'll fluff it. Just sorta let this brush dance and play and have fun. Always have that little roll of paint. Just let it sort of flow. Be... so... careful! It doesn't matter in our world where it goes.
 
 We push quite hard! Now, very gently, we'll hypnotize it. Be careful with this bright red -- it'll eat up your whole world in a heartbeat. Just a nice little mountain, a little friendly guy. Just let them fall right out of your brush. Just any old thing that'll stick to the canvas. We'll put a little mountain here.
 
 Now we're ready to start working it. Make all kinds of little tree things happen. Just make little criss-cross strokes. It helps, when you're doing these kinds of things, make up little stories in your mind. Super light touch here. Do whatever feels right. It's always trying to go somewhere that it can be level.</p>
-        </details>  
+      </details>
     </main>
-    <script src="index.js"></script>
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
-      import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-      import { getFirestore, collection, addDoc, getDoc, getDocs, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+    <dialog id="auth-modal">
+      <button class="modal-close" type="button" id="btn-modal-close">✕</button>
+      <button class="btn-google" type="button" id="btn-google">Continue with Google</button>
+      <div class="divider">or continue with email</div>
+      <form id="email-form">
+        <label for="auth-email">Email</label>
+        <input type="email" id="auth-email" placeholder="you@example.com" autocomplete="email">
+        <label for="auth-password">Password</label>
+        <div class="pw-row">
+          <input type="password" id="auth-password" autocomplete="current-password">
+          <button type="button" id="btn-show-pw">Show</button>
+        </div>
+        <label class="notify" id="notify-row" hidden>
+          <input type="checkbox" id="auth-notify">
+          Email me when there's a new post
+        </label>
+        <p id="auth-error" hidden></p>
+        <button type="submit" id="btn-submit">Sign in</button>
+        <button type="button" id="btn-forgot">Forgot your password?</button>
+        <button type="button" id="btn-toggle-mode">Need an account? Sign up</button>
+      </form>
+    </dialog>
     
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyCXO7ujz0URmunJPEYu53nyBz_eX1-8smo",
-        authDomain: "spblog-57fd2.firebaseapp.com",
-        projectId: "spblog-57fd2",
-        storageBucket: "spblog-57fd2.firebasestorage.app",
-        messagingSenderId: "956579274006",
-        appId: "1:956579274006:web:e8ae822f50a63089198437",
-        measurementId: "G-R83T6MW9CE"
-      };
+    <dialog id="settings-modal">
+      <button class="modal-close" type="button" id="btn-settings-close">✕</button>
+      <h2>Account settings</h2>
+      <form id="settings-form">
+        <label for="settings-name">Display name</label>
+        <input type="text" id="settings-name" autocomplete="name">
+        <label class="notify">
+          <input type="checkbox" id="settings-notify">
+          Email me when there's a new post
+        </label>
+        <p id="settings-message" hidden></p>
+        <button type="submit">Save</button>
+      </form>
+    </dialog>
     
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
-      const auth = getAuth(app);
-      const db = getFirestore(app);
-    </script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

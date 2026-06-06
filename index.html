@@ -95,7 +95,10 @@
         <textarea id="post-body" rows="12"></textarea>
     
         <label for="post-tags">Tags (comma separated)</label>
-        <input type="text" id="post-tags" autocomplete="off" placeholder="css, firebase">
+        <div class="tag-field">
+          <input type="text" id="post-tags" autocomplete="off" placeholder="css, firebase">
+          <ul id="tag-suggestions" class="tag-suggestions" hidden></ul>
+        </div>
     
         <p id="post-message" hidden></p>
         <button type="submit">Publish</button>

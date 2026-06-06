@@ -11,6 +11,7 @@ import { refreshTabs } from "./tabs.js";
 
 const feed = document.querySelector("main");
 let tagSet = new Set();
+let loaded = [];
 
 export async function renderPosts() {
   try {
@@ -24,9 +25,10 @@ export async function renderPosts() {
     }
 
     const posts = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    loaded = posts;
     tagSet = new Set(posts.flatMap((post) => post.tags ?? []));
     feed.replaceChildren(...posts.map(postElement));
-    
+
     refreshTabs();
   } catch (error) {
     console.error(error);
@@ -36,38 +38,40 @@ export async function renderPosts() {
 
 function postElement(post) {
   const details = document.createElement("details");
-  
+
   details.dataset.category = post.category;
+  details.dataset.id = post.id;
   details.append(summaryFor(post));
   details.insertAdjacentHTML("beforeend", marked.parse(post.body ?? ""));
-  
+  details.append(actionsFor(post.id));
+
   return details;
 }
 
 function summaryFor(post) {
   const summary = document.createElement("summary");
-  
+
   summary.append(post.title, " ");
   if (post.authorName) summary.append(bylineFor(post.authorName));
-  
+
   summary.append(dateFor(post.createdAt));
   if (post.tags?.length) summary.append(tagsFor(post.tags));
-  
+
   return summary;
 }
 
 function bylineFor(name) {
   const span = document.createElement("span");
-  
+
   span.className = "byline";
   span.textContent = `by ${name} · `;
-  
+
   return span;
 }
 
 function dateFor(timestamp) {
   const time = document.createElement("time");
-  
+
   time.textContent = timestamp
     ? timestamp.toDate().toLocaleDateString("en-US", {
         year: "numeric",
@@ -75,31 +79,58 @@ function dateFor(timestamp) {
         day: "numeric",
       })
     : "";
-  
+
   return time;
 }
 
 function tagsFor(tags) {
   const ul = document.createElement("ul");
   ul.className = "tags";
-  
+
   for (const tag of tags) {
     const li = document.createElement("li");
     li.textContent = tag;
     ul.append(li);
   }
-  
+
   return ul;
+}
+
+function actionsFor(id) {
+  const actions = document.createElement("div");
+  actions.className = "post-actions";
+
+  actions.append(
+    actionButton("Edit", "post-edit", id),
+    actionButton("Delete", "post-delete", id)
+  );
+
+  return actions;
+}
+
+function actionButton(label, className, id) {
+  const button = document.createElement("button");
+
+  button.type = "button";
+  button.className = className;
+  button.dataset.id = id;
+  button.textContent = label;
+
+  return button;
 }
 
 export function usedTags() {
   return [...tagSet].sort();
 }
 
+export function getPost(id) {
+  return loaded.find((post) => post.id === id);
+}
+
 function message(text) {
   const p = document.createElement("p");
   p.textContent = text;
-  
+
   return p;
 }
 

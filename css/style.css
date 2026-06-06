@@ -40,7 +40,7 @@ summary .tags {
 }
 
 /* auth modal */
-dialog#auth-modal { max-width: 24rem; padding: 1.5rem; }
+dialog#auth-modal { width: 80%; max-width: none; padding: 1.5rem; }
 .modal-close { background: none; border: none; float: right; color: var(--text-light); font-size: 1.1rem; margin: -.25rem -.25rem .5rem 0; }
 .modal-close:hover { background: none; color: var(--text); }
 .btn-google { width: 100%; background: var(--bg); border-color: var(--border); color: var(--text); }
@@ -113,7 +113,7 @@ dialog#auth-modal { max-width: 24rem; padding: 1.5rem; }
 .masthead-actions { display: flex; align-items: center; gap: .6rem; }
 #new-post[hidden] { display: none; }
 
-dialog#post-modal { max-width: 40rem; padding: 1.5rem; }
+dialog#post-modal { width: 80%; max-width: none; padding: 1.5rem; }
 #post-modal textarea { width: 100%; font-family: monospace; }
 #post-message { font-size: .9rem; margin: .25rem 0; color: red; }
 #post-message.auth-success { color: green; }

@@ -108,3 +108,13 @@ dialog#auth-modal { max-width: 24rem; padding: 1.5rem; }
 #login[hidden] {
   display: none;
 }
+
+/* Post Modal */
+.masthead-actions { display: flex; align-items: center; gap: .6rem; }
+#new-post[hidden] { display: none; }
+
+dialog#post-modal { max-width: 40rem; padding: 1.5rem; }
+#post-modal textarea { width: 100%; font-family: monospace; }
+#post-message { font-size: .9rem; margin: .25rem 0; color: red; }
+#post-message.auth-success { color: green; }
+#post-form button[type=submit] { width: 100%; }

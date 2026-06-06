@@ -16,5 +16,9 @@ export function refreshTabs() {
   });
 }
 
+export function currentCategory() {
+  return location.hash.slice(1) || "coding";
+}
+
 window.addEventListener("hashchange", refreshTabs);
 refreshTabs();

@@ -118,3 +118,22 @@ dialog#post-modal { width: 80%; max-width: none; padding: 1.5rem; }
 #post-message { font-size: .9rem; margin: .25rem 0; color: red; }
 #post-message.auth-success { color: green; }
 #post-form button[type=submit] { width: 100%; }
+
+/* Tag Suggestion*/
+.tag-field { position: relative; }
+.tag-suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: .4rem;
+  max-height: 12rem;
+  overflow-y: auto;
+  z-index: 10;
+}
+.tag-suggestions li { padding: .4rem .6rem; cursor: pointer; }
+.tag-suggestions li:hover { background: var(--accent-bg); }

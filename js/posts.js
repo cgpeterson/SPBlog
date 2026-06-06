@@ -10,6 +10,7 @@ import { db } from "./firebase.js";
 import { refreshTabs } from "./tabs.js";
 
 const feed = document.querySelector("main");
+let tagSet = new Set();
 
 export async function renderPosts() {
   try {
@@ -23,7 +24,9 @@ export async function renderPosts() {
     }
 
     const posts = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    tagSet = new Set(posts.flatMap((post) => post.tags ?? []));
     feed.replaceChildren(...posts.map(postElement));
+    
     refreshTabs();
   } catch (error) {
     console.error(error);
@@ -87,6 +90,10 @@ function tagsFor(tags) {
   }
   
   return ul;
+}
+
+export function usedTags() {
+  return [...tagSet].sort();
 }
 
 function message(text) {

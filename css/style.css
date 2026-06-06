@@ -32,14 +32,18 @@ ul.tags { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; list-style: no
 ul.tags li { background: var(--accent-bg); border: 1px solid var(--border); border-radius: 5px; padding: .1rem .6rem; font-size: .85rem; }
 
 summary time,
+summary .byline,
 summary .tags {
   font-weight: normal;
   color: var(--text-light);
   font-size: 0.85rem;
 }
 
+.post-actions { display: none; gap: .5rem; margin-top: 1rem; }
+body.is-author .post-actions { display: flex; }
+
 /* auth modal */
-dialog#auth-modal { max-width: 24rem; padding: 1.5rem; }
+dialog#auth-modal { width: 80%; max-width: none; padding: 1.5rem; }
 .modal-close { background: none; border: none; float: right; color: var(--text-light); font-size: 1.1rem; margin: -.25rem -.25rem .5rem 0; }
 .modal-close:hover { background: none; color: var(--text); }
 .btn-google { width: 100%; background: var(--bg); border-color: var(--border); color: var(--text); }
@@ -107,3 +111,32 @@ dialog#auth-modal { max-width: 24rem; padding: 1.5rem; }
 #login[hidden] {
   display: none;
 }
+
+/* Post Modal */
+.masthead-actions { display: flex; align-items: center; gap: .6rem; }
+#new-post[hidden] { display: none; }
+
+dialog#post-modal { width: 80%; max-width: none; padding: 1.5rem; }
+#post-modal textarea { width: 100%; font-family: monospace; }
+#post-message { font-size: .9rem; margin: .25rem 0; color: red; }
+#post-message.auth-success { color: green; }
+#post-form button[type=submit] { width: 100%; }
+
+/* Tag Suggestion*/
+.tag-field { position: relative; }
+.tag-suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: .4rem;
+  max-height: 12rem;
+  overflow-y: auto;
+  z-index: 10;
+}
+.tag-suggestions li { padding: .4rem .6rem; cursor: pointer; }
+.tag-suggestions li:hover { background: var(--accent-bg); }

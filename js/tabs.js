@@ -1,6 +1,6 @@
 const tabs = document.querySelectorAll(".tabs a");
 
-function currentCategory() {
+export function currentCategory() {
   return location.hash.slice(1) || "coding";
 }
 

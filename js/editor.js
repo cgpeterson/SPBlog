@@ -10,13 +10,13 @@ import { isAuthor } from "./auth.js";
 import { currentCategory } from "./tabs.js";
 import { renderPosts } from "./posts.js";
 
-const TEMPLATE = `## Purpose
+const TEMPLATE = `#### Purpose
 
-## Actions taken
+#### Actions taken
 
-## What worked well
+#### What worked well
 
-## What didn't work
+#### What didn't work
 `;
 
 // Elements

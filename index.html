@@ -77,6 +77,31 @@
       </form>
     </dialog>
     
+    <dialog id="post-modal">
+      <button class="modal-close" type="button" id="btn-post-close">✕</button>
+      <h2>New post</h2>
+      <form id="post-form">
+        <label for="post-title">Title</label>
+        <input type="text" id="post-title" autocomplete="off">
+    
+        <label for="post-category">Category</label>
+        <select id="post-category">
+          <option value="coding">Coding</option>
+          <option value="woodworking">Woodworking</option>
+          <option value="fitness">Fitness</option>
+        </select>
+    
+        <label for="post-body">Content (markdown)</label>
+        <textarea id="post-body" rows="12"></textarea>
+    
+        <label for="post-tags">Tags (comma separated)</label>
+        <input type="text" id="post-tags" autocomplete="off" placeholder="css, firebase">
+    
+        <p id="post-message" hidden></p>
+        <button type="submit">Publish</button>
+      </form>
+    </dialog>
+    
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

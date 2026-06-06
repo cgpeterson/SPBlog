@@ -1,6 +1,9 @@
 import {
   collection,
   addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
@@ -8,7 +11,7 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/f
 import { db, auth } from "./firebase.js";
 import { isAuthor } from "./auth.js";
 import { currentCategory } from "./tabs.js";
-import { renderPosts, usedTags } from "./posts.js";
+import { renderPosts, usedTags, getPost } from "./posts.js";
 
 const TEMPLATE = `#### Purpose
 
@@ -19,9 +22,13 @@ const TEMPLATE = `#### Purpose
 #### What didn't work
 `;
 
+let editingId = null;
+
 // Elements
 const newPostBtn     = document.getElementById("new-post");
 const modal          = document.getElementById("post-modal");
+const modalTitle     = document.getElementById("post-modal-title");
+const submitBtn      = document.getElementById("btn-post-submit");
 const form           = document.getElementById("post-form");
 const titleInput     = document.getElementById("post-title");
 const categorySelect = document.getElementById("post-category");
@@ -29,13 +36,31 @@ const bodyInput      = document.getElementById("post-body");
 const tagsInput      = document.getElementById("post-tags");
 const message        = document.getElementById("post-message");
 const suggestions    = document.getElementById("tag-suggestions");
+const feed           = document.querySelector("main");
 
 // Modal
 function openPostModal() {
+  editingId = null;
   form.reset();
   categorySelect.value = currentCategory();
   bodyInput.value = TEMPLATE;
+  modalTitle.textContent = "New post";
+  submitBtn.textContent = "Publish";
   message.hidden = true;
+  suggestions.hidden = true;
+  modal.showModal();
+}
+
+function openEditModal(post) {
+  editingId = post.id;
+  titleInput.value = post.title;
+  categorySelect.value = post.category;
+  bodyInput.value = post.body;
+  tagsInput.value = (post.tags ?? []).join(", ");
+  modalTitle.textContent = "Edit post";
+  submitBtn.textContent = "Save";
+  message.hidden = true;
+  suggestions.hidden = true;
   modal.showModal();
 }
 
@@ -45,33 +70,53 @@ function showMessage(text, { success = false } = {}) {
   message.hidden = false;
 }
 
-// Create
-async function publish(event) {
+// Create and update
+async function savePost(event) {
   event.preventDefault();
   const title = titleInput.value.trim();
   const body = bodyInput.value.trim();
-  
+
   if (!title || !body) {
     showMessage("Title and content are required.");
     return;
   }
-  
-  const user = auth.currentUser;
+
+  const fields = {
+    title,
+    category: categorySelect.value,
+    body,
+    tags: parseTags(tagsInput.value),
+  };
+
   try {
-    await addDoc(collection(db, "posts"), {
-      title,
-      category: categorySelect.value,
-      body,
-      tags: parseTags(tagsInput.value),
-      authorUid: user.uid,
-      authorName: user.displayName || user.email,
-      createdAt: serverTimestamp(),
-    });
+    if (editingId) {
+      await updateDoc(doc(db, "posts", editingId), fields);
+    } else {
+      const user = auth.currentUser;
+      await addDoc(collection(db, "posts"), {
+        ...fields,
+        authorUid: user.uid,
+        authorName: user.displayName || user.email,
+        createdAt: serverTimestamp(),
+      });
+    }
     modal.close();
     renderPosts();
   } catch (error) {
     console.error(error);
-    showMessage("Could not publish. Try again.");
+    showMessage("Could not save. Try again.");
+  }
+}
+
+async function deletePost(id) {
+  if (!confirm("Delete this post? This can't be undone.")) return;
+
+  try {
+    await deleteDoc(doc(db, "posts", id));
+    renderPosts();
+  } catch (error) {
+    console.error(error);
+    alert("Could not delete the post.");
   }
 }
 
@@ -124,14 +169,28 @@ function applyTag(tag) {
 
 // Wiring
 onAuthStateChanged(auth, () => {
-  newPostBtn.hidden = !isAuthor();
+  const author = isAuthor();
+  newPostBtn.hidden = !author;
+  document.body.classList.toggle("is-author", author);
 });
 
 newPostBtn.addEventListener("click", openPostModal);
-form.addEventListener("submit", publish);
+form.addEventListener("submit", savePost);
 document.getElementById("btn-post-close").addEventListener("click", () => modal.close());
 modal.addEventListener("click", (event) => {
   if (event.target === modal) modal.close();
+});
+
+feed.addEventListener("click", (event) => {
+  const editBtn = event.target.closest(".post-edit");
+  if (editBtn) {
+    const post = getPost(editBtn.dataset.id);
+    if (post) openEditModal(post);
+    return;
+  }
+
+  const deleteBtn = event.target.closest(".post-delete");
+  if (deleteBtn) deletePost(deleteBtn.dataset.id);
 });
 
 tagsInput.addEventListener("input", showSuggestions);

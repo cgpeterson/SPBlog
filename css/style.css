@@ -39,6 +39,9 @@ summary .tags {
   font-size: 0.85rem;
 }
 
+.post-actions { display: none; gap: .5rem; margin-top: 1rem; }
+body.is-author .post-actions { display: flex; }
+
 /* auth modal */
 dialog#auth-modal { width: 80%; max-width: none; padding: 1.5rem; }
 .modal-close { background: none; border: none; float: right; color: var(--text-light); font-size: 1.1rem; margin: -.25rem -.25rem .5rem 0; }

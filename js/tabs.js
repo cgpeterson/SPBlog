@@ -1,6 +1,6 @@
 const tabs = document.querySelectorAll(".tabs a");
 
-function currentCategory() {
+export function currentCategory() {
   return location.hash.slice(1) || "coding";
 }
 
@@ -14,10 +14,6 @@ export function refreshTabs() {
   document.querySelectorAll("main [data-category]").forEach((post) => {
     post.hidden = post.dataset.category !== category;
   });
-}
-
-export function currentCategory() {
-  return location.hash.slice(1) || "coding";
 }
 
 window.addEventListener("hashchange", refreshTabs);

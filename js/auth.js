@@ -8,7 +8,7 @@ import {
 import { auth } from "./firebase.js";
 import { setNotify } from "./subscribers.js";
 
-const AUTHOR_UIDS = ["tCKw1JaR0pdiiLlcrujL6f1yNxg2", "CLIENT_UID"];
+const AUTHOR_UIDS = ["tCKw1JaR0pdiiLlcrujL6f1yNxg2", "tJRT2ygb9Ke4jxZfTRNJN49hYE12"];
 
 export const isAuthor = () =>
   auth.currentUser && AUTHOR_UIDS.includes(auth.currentUser.uid);
